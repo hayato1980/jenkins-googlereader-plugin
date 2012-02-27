@@ -3,10 +3,11 @@ class StarredcountBuilder < Jenkins::Tasks::Builder
 
     display_name "Starredcount builder"
 
-    # Invoked with the form parameters when this extension point
-    # is created from a configuration screen.
-    def initialize(attrs = {})
+    attr_accessor :account, :password
 
+    def initialize(attrs = {})
+      @account = attrs['account']
+      @password = attrs['password']
     end
 
     ##

@@ -1,6 +1,11 @@
-<% f = taglib("/lib/form") %>
-<% f.entry do %>
-    <p>
-    Test View <%= Time.now.to_s %>
-    </p>
-<% end %>
+<%
+f = taglib("/lib/form")
+f.block do
+  f.entry(:title => "google account", :field => "account") do
+    f.textbox
+  end
+  f.entry(:title => "google password", :field => "password") do
+    f.password
+  end
+end
+%>

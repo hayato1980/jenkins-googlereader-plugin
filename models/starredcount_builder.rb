@@ -27,6 +27,14 @@ class StarredcountBuilder < Jenkins::Tasks::Builder
     # @param [Jenkins::Model::Listener] listener the listener for this build.
     def perform(build, launcher, listener)
       # actually perform the build step
+      require 'google/reader'
+
+      Google::Reader::Base.establish_connection(@account, @password)
+      unread = Google::Reader::Count.feeds.inject(0){|r,x|r+x.count}
+      starred = Google::Reader::Base.get_entries( "http://www.google.com/reader/atom/user/-/state/com.google/starred?n=10000" ).count
+
+      listener.info("unread=" + unread.to_s)
+      listener.info("starred=" + starred.to_s)
     end
 
 end

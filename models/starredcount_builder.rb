@@ -26,7 +26,6 @@ class StarredcountBuilder < Jenkins::Tasks::Builder
     # @param [Jenkins::Launcher] launcher the launcher that can run code on the node running this build
     # @param [Jenkins::Model::Listener] listener the listener for this build.
     def perform(build, launcher, listener)
-      # actually perform the build step
       require 'google/reader'
 
       Google::Reader::Base.establish_connection(@account, @password)

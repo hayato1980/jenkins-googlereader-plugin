@@ -33,8 +33,13 @@ class StarredcountBuilder < Jenkins::Tasks::Builder
       unread = Google::Reader::Count.feeds.inject(0){|r,x|r+x.count}
       starred = Google::Reader::Base.get_entries( "http://www.google.com/reader/atom/user/-/state/com.google/starred?n=10000" ).count
 
-      listener.info("unread=" + unread.to_s)
-      listener.info("starred=" + starred.to_s)
+
+      open(build.workspace.realpath + "/googlereadercount.csv", "w+") do |f|
+        f.print "time,starred,unread,starred+unread\r\n"
+        f.print ",#{starred},#{unread},#{starred+unread}\r\n"
+      end
+
+      listener.info("finished output google reader count csv file.")
     end
 
 end
